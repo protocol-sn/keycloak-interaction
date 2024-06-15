@@ -1,0 +1,56 @@
+plugins {
+    id 'io.micronaut.library' version '4.4.0'
+    id 'maven-publish'
+}
+
+version = "0.1.0"
+group = "coop.stlma.tech.protocolsn"
+
+repositories {
+    mavenCentral()
+}
+
+micronaut {
+    version = "4.4.2"
+}
+
+dependencies {
+    //serde
+    annotationProcessor("io.micronaut.serde:micronaut-serde-processor")
+    implementation("io.micronaut.serde:micronaut-serde-jackson")
+    implementation("io.micronaut:micronaut-jackson-databind")
+
+    //web
+    implementation("io.micronaut:micronaut-http-client")
+
+    //lombok
+    annotationProcessor("org.projectlombok:lombok")
+    compileOnly("org.projectlombok:lombok")
+
+    //reactor
+    implementation("io.micronaut.reactor:micronaut-reactor")
+    implementation("io.micronaut.reactor:micronaut-reactor-http-client")
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion("21")
+    targetCompatibility = JavaVersion.toVersion("21")
+}
+
+
+test {
+    useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = project.group
+            artifactId = "keycloak-api"
+            version = project.version
+
+            from components.java
+        }
+    }
+}
+

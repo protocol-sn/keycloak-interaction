@@ -1,0 +1,6 @@
+
+	java:S112_"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8‹¼«ï2J$90d67ffe-9a2d-476c-9ee3-a36ec6b4c9a6
+
+java:S2095Z"LUse try-with-resources or close this "BufferedReader" in a "finally" clause.(ÿú§ê8á¼«ï2J$d43dff3b-11d2-4a6f-80aa-ca6ae3e87647
+É
+java:S1186e"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(—µ±şıÿÿÿÿ8ä¼«ï2J$b4cf7303-8f8e-4887-b8d4-2d66bd857c8d

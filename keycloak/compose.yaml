@@ -14,13 +14,15 @@ services:
       - "KC_DB_URL=jdbc:postgresql://db:5432/keycloak"
       - "KC_DB_USERNAME=postgres"
       - "KC_DB_PASSWORD=postgres"
-      - "KC_HOSTNAME=localhost"
       - "KEYCLOAK_ADMIN=admin"
       - "KEYCLOAK_ADMIN_PASSWORD=admin"
-    command: start-dev --import-realm
+    command: start-dev --import-realm --log-level=INFO --hostname-debug true
+    hostname: keycloak.local
     volumes:
       - ./ecosystem.json:/opt/keycloak/data/import/ecosystem.json
       - ../keycloak-custom-event-listener/target/custom-event-listener.jar://opt/keycloak/providers/custom-event-listener.jar
+    networks:
+      - social-network-ecosystem
   db:
     image: postgres
     restart: always
@@ -33,3 +35,12 @@ services:
       - 5443:5432
     volumes:
       - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - social-network-ecosystem
+
+
+      
+networks:
+  social-network-ecosystem:
+    driver: bridge
+    name: social-network-ecosystem

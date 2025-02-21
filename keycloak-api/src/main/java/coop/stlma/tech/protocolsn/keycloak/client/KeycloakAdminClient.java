@@ -1,6 +1,7 @@
 package coop.stlma.tech.protocolsn.keycloak.client;
 
 import coop.stlma.tech.protocolsn.keycloak.domain.UserRepresentation;
+import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Get;
@@ -41,20 +42,20 @@ public interface KeycloakAdminClient {
      */
     @Get("/users")
     Mono<HttpResponse<List<UserRepresentation>>> queryUsers(@PathVariable("realm") String realm,
-                                                            @QueryValue("briefRepresentation") Boolean briefRepresentation,
-                                                            @QueryValue("email") Boolean email,
-                                                            @QueryValue("emailVerified") Boolean emailVerified,
-                                                            @QueryValue("enabled") Boolean enabled,
-                                                            @QueryValue("exact") Boolean exact,
-                                                            @QueryValue("first") Boolean first,
-                                                            @QueryValue("firstName") Boolean firstName,
-                                                            @QueryValue("idpAlias") Boolean idpAlias,
-                                                            @QueryValue("idpUserId") Boolean idpUserId,
-                                                            @QueryValue("lastName") Boolean lastName,
-                                                            @QueryValue("max") Boolean max,
-                                                            @QueryValue("q") Boolean q,
-                                                            @QueryValue("search") Boolean search,
-                                                            @QueryValue("username") Boolean username);
+                                                            @Nullable @QueryValue("briefRepresentation") Boolean briefRepresentation,
+                                                            @Nullable @QueryValue("email") String email,
+                                                            @Nullable @QueryValue("emailVerified") Boolean emailVerified,
+                                                            @Nullable @QueryValue("enabled") Boolean enabled,
+                                                            @Nullable @QueryValue("exact") Boolean exact,
+                                                            @QueryValue("first") Integer first,
+                                                            @Nullable @QueryValue("firstName") String firstName,
+                                                            @Nullable @QueryValue("idpAlias") Boolean idpAlias,
+                                                            @Nullable @QueryValue("idpUserId") String idpUserId,
+                                                            @Nullable @QueryValue("lastName") String lastName,
+                                                            @QueryValue("max") Integer max,
+                                                            @Nullable @QueryValue("q") String q,
+                                                            @Nullable @QueryValue("search") String search,
+                                                            @Nullable @QueryValue("username") String username);
 
     /**
      * Get representation of the user
@@ -70,7 +71,7 @@ public interface KeycloakAdminClient {
      * Update the user
      * @param realm realm name (not id!)
      * @param id user id
-     * @param user UserRepresentation (optional
+     * @param user UserRepresentation (optional)
      * @return 200 OK if success, otherwise 400
      */
     @Put("/users/{id}")

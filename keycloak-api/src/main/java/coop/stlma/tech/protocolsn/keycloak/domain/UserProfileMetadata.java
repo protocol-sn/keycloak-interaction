@@ -1,10 +1,13 @@
 package coop.stlma.tech.protocolsn.keycloak.domain;
 
+import io.micronaut.serde.annotation.Serdeable;
+
 import java.util.List;
 import java.util.Optional;
 
 import static java.util.Collections.emptyList;
 
+@Serdeable
 public class UserProfileMetadata {
     private List<UserProfileAttributeMetadata> attributes;
     private List<UserProfileAttributeGroupMetadata> groups;

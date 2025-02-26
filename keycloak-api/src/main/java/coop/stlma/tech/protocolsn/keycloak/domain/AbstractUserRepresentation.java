@@ -1,8 +1,6 @@
 package coop.stlma.tech.protocolsn.keycloak.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import coop.stlma.tech.protocolsn.keycloak.json.StringListMapDeserializer;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -25,7 +23,6 @@ public class AbstractUserRepresentation {
     protected String lastName;
     protected String email;
     protected Boolean emailVerified;
-    @JsonDeserialize(using = StringListMapDeserializer.class)
     protected Map<String, List<String>> attributes;
     private UserProfileMetadata userProfileMetadata;
 

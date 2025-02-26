@@ -1,5 +1,10 @@
 package coop.stlma.tech.protocolsn.keycloak.domain;
 
+import io.micronaut.core.annotation.Introspected;
+import io.micronaut.serde.annotation.Serdeable;
+
+@Introspected
+@Serdeable
 public class FederatedIdentityRepresentation {
 
     protected String identityProvider;

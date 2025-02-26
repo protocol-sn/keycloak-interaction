@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import io.micronaut.core.annotation.Introspected;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+@Introspected
 public class StringListMapDeserializer extends JsonDeserializer<Object> {
 
     @Override

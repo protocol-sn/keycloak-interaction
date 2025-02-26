@@ -1,9 +1,12 @@
 package coop.stlma.tech.protocolsn.keycloak.domain;
 
+import io.micronaut.serde.annotation.Serdeable;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@Serdeable
 public class UserRepresentation extends AbstractUserRepresentation {
     protected String self; // link
     protected String origin;

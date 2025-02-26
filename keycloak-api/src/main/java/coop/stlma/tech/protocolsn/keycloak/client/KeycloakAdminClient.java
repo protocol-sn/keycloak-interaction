@@ -5,6 +5,7 @@ import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.Header;
 import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Put;
@@ -17,9 +18,35 @@ import java.util.List;
 /**
  * Declarative client for Keycloak Admin API
  * See: <a href="https://www.keycloak.org/docs-api/25.0.0/rest-api/index.html">...</a>
+ *
+ * NB: the query param does not appear to work when in the client annotation. It has been moved to all the method annotations.
  */
-@Client(id="keycloak-admin", path="/admin/realms/{realm}")
+@Client(id="keycloak-admin", path="/admin/realms/")
 public interface KeycloakAdminClient {
+
+    /**
+     * Returns the number of users that match the given criteria.
+     * @param realm realm name (not id!)
+     * @param email A String contained in email, or the complete email, if param &quot;exact&quot; is true
+     * @param emailVerified whether the email has been verified
+     * @param enabled Boolean representing if user is enabled or not
+     * @param lastName A String contained in lastName, or the complete lastName, if param &quot;exact&quot; is true
+     * @param q A query to search for custom attributes, in the format 'key1:value2 key2:value2'
+     * @param search A String contained in username, first or last name, or email. Default search behavior is prefix-based (e.g., foo or foo*). Use foo for infix search and &quot;foo&quot; for exact search.
+     * @param username A String contained in username, or the complete username, if param &quot;exact&quot; is true
+     * @return Collection of users that meet query criteria
+     */
+    @Get("{realm}/users/count")
+    Mono<HttpResponse<List<Integer>>> countUsers(@PathVariable("realm") String realm,
+                                                            @Nullable @QueryValue("email") String email,
+                                                            @Nullable @QueryValue("emailVerified") Boolean emailVerified,
+                                                            @Nullable @QueryValue("enabled") Boolean enabled,
+                                                            @Nullable @QueryValue("firstName") String firstNaId,
+                                                            @Nullable @QueryValue("lastName") String lastName,
+                                                            @Nullable @QueryValue("q") String q,
+                                                            @Nullable @QueryValue("search") String search,
+                                                            @Nullable @QueryValue("username") String username);
+
 
     /**
      * Get users Returns a stream of users, filtered according to query parameters.
@@ -40,19 +67,19 @@ public interface KeycloakAdminClient {
      * @param username A String contained in username, or the complete username, if param &quot;exact&quot; is true
      * @return Collection of users that meet query criteria
      */
-    @Get("/users")
+    @Get("{realm}/users")
     Mono<HttpResponse<List<UserRepresentation>>> queryUsers(@PathVariable("realm") String realm,
                                                             @Nullable @QueryValue("briefRepresentation") Boolean briefRepresentation,
                                                             @Nullable @QueryValue("email") String email,
                                                             @Nullable @QueryValue("emailVerified") Boolean emailVerified,
                                                             @Nullable @QueryValue("enabled") Boolean enabled,
                                                             @Nullable @QueryValue("exact") Boolean exact,
-                                                            @QueryValue("first") Integer first,
+                                                            @Nullable @QueryValue("first") Integer first,
                                                             @Nullable @QueryValue("firstName") String firstName,
                                                             @Nullable @QueryValue("idpAlias") Boolean idpAlias,
                                                             @Nullable @QueryValue("idpUserId") String idpUserId,
                                                             @Nullable @QueryValue("lastName") String lastName,
-                                                            @QueryValue("max") Integer max,
+                                                            @Nullable @QueryValue("max") Integer max,
                                                             @Nullable @QueryValue("q") String q,
                                                             @Nullable @QueryValue("search") String search,
                                                             @Nullable @QueryValue("username") String username);
@@ -63,7 +90,7 @@ public interface KeycloakAdminClient {
      * @param id user id
      * @return The requested user
      */
-    @Get("/users/{id}")
+    @Get("{realm}/users/{id}")
     Mono<HttpResponse<UserRepresentation>> getUser(@PathVariable("realm") String realm,
                                                    @PathVariable("id") String id);
 
@@ -74,7 +101,7 @@ public interface KeycloakAdminClient {
      * @param user UserRepresentation (optional)
      * @return 200 OK if success, otherwise 400
      */
-    @Put("/users/{id}")
+    @Put("{realm}/users/{id}")
     Mono<HttpResponse<Void>> updateUser(@PathVariable("realm") String realm,
                                         @PathVariable("id") String id,
                                         @Body UserRepresentation user);
@@ -85,7 +112,7 @@ public interface KeycloakAdminClient {
      * @param user UserRepresentation (optional)
      * @return 200 OK if success, otherwise 400
      */
-    @Post("/users")
+    @Post("{realm}/users")
     Mono<HttpResponse<Void>> createUser(@PathVariable("realm") String realm,
                                         @Body UserRepresentation user);
 }

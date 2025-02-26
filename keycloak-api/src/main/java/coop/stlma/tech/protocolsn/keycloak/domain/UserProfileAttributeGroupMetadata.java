@@ -1,7 +1,10 @@
 package coop.stlma.tech.protocolsn.keycloak.domain;
 
+import io.micronaut.serde.annotation.Serdeable;
+
 import java.util.Map;
 
+@Serdeable
 public class UserProfileAttributeGroupMetadata {
 
     private String name;

@@ -1,5 +1,8 @@
 package coop.stlma.tech.protocolsn.keycloak.domain;
 
+import io.micronaut.serde.annotation.Serdeable;
+
+@Serdeable
 public class SocialLinkRepresentation {
 
     protected String socialProvider;

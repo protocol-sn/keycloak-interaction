@@ -1,10 +1,14 @@
 package coop.stlma.tech.protocolsn.keycloak.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.micronaut.core.annotation.Introspected;
+import io.micronaut.serde.annotation.Serdeable;
 
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
+@Introspected
+@Serdeable
 public class UserConsentRepresentation {
 
     protected String clientId;

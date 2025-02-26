@@ -1,5 +1,10 @@
 package coop.stlma.tech.protocolsn.keycloak.domain;
 
+import io.micronaut.core.annotation.Introspected;
+import io.micronaut.serde.annotation.Serdeable;
+
+@Introspected
+@Serdeable
 public class CredentialRepresentation {
     public static final String SECRET = "secret";
     public static final String PASSWORD = "password";

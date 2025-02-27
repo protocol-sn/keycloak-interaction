@@ -115,4 +115,16 @@ public interface KeycloakAdminClient {
     @Post("{realm}/users")
     Mono<HttpResponse<Void>> createUser(@PathVariable("realm") String realm,
                                         @Body UserRepresentation user);
+
+    /**
+     * Add a user to a group
+     * @param realm realm name (not id!)
+     * @param userId user id
+     * @param groupId group id
+     * @return 204 is success
+     */
+    @Put("{realm}/users/{userId}/groups/{groupId}")
+    Mono<HttpResponse<Void>> addUserToGroup(@PathVariable("realm") String realm,
+                                            @PathVariable("userId") String userId,
+                                            @PathVariable("groupId") String groupId);
 }

@@ -4,6 +4,7 @@ import coop.stlma.tech.protocolsn.keycloak.domain.UserRepresentation;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Body;
+import io.micronaut.http.annotation.Delete;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Header;
 import io.micronaut.http.annotation.PathVariable;
@@ -121,10 +122,22 @@ public interface KeycloakAdminClient {
      * @param realm realm name (not id!)
      * @param userId user id
      * @param groupId group id
-     * @return 204 is success
+     * @return 204 if success
      */
     @Put("{realm}/users/{userId}/groups/{groupId}")
     Mono<HttpResponse<Void>> addUserToGroup(@PathVariable("realm") String realm,
+                                            @PathVariable("userId") String userId,
+                                            @PathVariable("groupId") String groupId);
+
+    /**
+     * Remove a user from a group
+     * @param realm realm name (not id!)
+     * @param userId user id
+     * @param groupId group id
+     * @return 204 if success
+     */
+    @Delete("{realm}/users/{userId}/groups/{groupId}")
+    Mono<HttpResponse<Void>> removeUserFromGroup(@PathVariable("realm") String realm,
                                             @PathVariable("userId") String userId,
                                             @PathVariable("groupId") String groupId);
 }

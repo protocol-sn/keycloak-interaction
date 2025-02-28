@@ -121,10 +121,22 @@ public interface KeycloakAdminClient {
      * @param realm realm name (not id!)
      * @param userId user id
      * @param groupId group id
-     * @return 204 is success
+     * @return 204 if success
      */
     @Put("{realm}/users/{userId}/groups/{groupId}")
     Mono<HttpResponse<Void>> addUserToGroup(@PathVariable("realm") String realm,
+                                            @PathVariable("userId") String userId,
+                                            @PathVariable("groupId") String groupId);
+
+    /**
+     * Remove a user from a group
+     * @param realm realm name (not id!)
+     * @param userId user id
+     * @param groupId group id
+     * @return 204 if success
+     */
+    @Put("{realm}/users/{userId}/groups/{groupId}")
+    Mono<HttpResponse<Void>> removeUserFromGroup(@PathVariable("realm") String realm,
                                             @PathVariable("userId") String userId,
                                             @PathVariable("groupId") String groupId);
 }

@@ -13,6 +13,7 @@ import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Put;
 import io.micronaut.http.annotation.QueryValue;
 import io.micronaut.http.client.annotation.Client;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -164,4 +165,27 @@ public interface KeycloakAdminClient {
                                                               @Nullable @QueryValue("populateHierarchy") Boolean populateHierarchy,
                                                               @Nullable @QueryValue("q") String q,
                                                               @Nullable @QueryValue("search") String search);
+
+    /**
+     * Update group, ignores subgroups.
+     *
+     * @param realm realm name (not id!)
+     * @param id group id
+     * @param groupRepresentation GroupRepresentation(optional)
+     * @return 200 OK if success
+     */
+    @Put("{realm}/groups/{id}")
+    Mono<HttpResponse<Void>> updateGroup(@PathVariable("realm") String realm,
+                                         @PathVariable("id") String id,
+                                         @Body GroupRepresentation groupRepresentation);
+
+    /**
+     *
+     * @param realm realm name (not id!)
+     * @param id group id
+     * @return the requested group
+     */
+    @Get("{realm}/groups/{id}")
+    Mono<HttpResponse<GroupRepresentation>> getGroup(@PathVariable("realm") String realm,
+                                                     @PathVariable("id") String id);
 }

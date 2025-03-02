@@ -1,5 +1,6 @@
 package coop.stlma.tech.protocolsn.keycloak.client;
 
+import coop.stlma.tech.protocolsn.keycloak.domain.GroupRepresentation;
 import coop.stlma.tech.protocolsn.keycloak.domain.UserRepresentation;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.HttpResponse;
@@ -138,6 +139,29 @@ public interface KeycloakAdminClient {
      */
     @Delete("{realm}/users/{userId}/groups/{groupId}")
     Mono<HttpResponse<Void>> removeUserFromGroup(@PathVariable("realm") String realm,
-                                            @PathVariable("userId") String userId,
-                                            @PathVariable("groupId") String groupId);
+                                                 @PathVariable("userId") String userId,
+                                                 @PathVariable("groupId") String groupId);
+
+    /**
+     * Get group hierarchy. Only name and id are returned. subGroups are only returned when using the search or q parameter. If none of these parameters is provided, the top-level groups are returned without subGroups being filled.
+     *
+     * @param realm realm name (not id!)
+     * @param briefRepresentation Boolean which defines whether brief representations are returned (default: false)
+     * @param exact Boolean which defines whether the params &quot;search&quot; must match exactly or not
+     * @param first The position of the first result to be returned (pagination offset).
+     * @param max The maximum number of results that are to be returned. Defaults to 10
+     * @param populateHierarchy Will subgroups be included in response
+     * @param q A query to search for custom attributes, in the format 'key1:value2 key2:value2'
+     * @param search A String representing either an exact group name or a partial name
+     * @return Collection of groups that meet query criteria
+     */
+    @Get("{realm}/groups")
+    Mono<HttpResponse<List<GroupRepresentation>>> queryGroups(@PathVariable("realm") String realm,
+                                                              @Nullable @QueryValue("briefRepresentation") Boolean briefRepresentation,
+                                                              @Nullable @QueryValue("exact") Boolean exact,
+                                                              @Nullable @QueryValue("first") Integer first,
+                                                              @Nullable @QueryValue("max") Integer max,
+                                                              @Nullable @QueryValue("populateHierarchy") Boolean populateHierarchy,
+                                                              @Nullable @QueryValue("q") String q,
+                                                              @Nullable @QueryValue("search") String search);
 }

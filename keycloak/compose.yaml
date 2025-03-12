@@ -16,7 +16,7 @@ services:
       - "KC_DB_PASSWORD=postgres"
       - "KEYCLOAK_ADMIN=admin"
       - "KEYCLOAK_ADMIN_PASSWORD=admin"
-    command: start-dev --import-realm --log-level=DEBUG --hostname-debug true
+    command: start-dev --import-realm --log-level=INFO --hostname-debug false
     hostname: keycloak.local
     volumes:
       - ./ecosystem.json:/opt/keycloak/data/import/ecosystem.json

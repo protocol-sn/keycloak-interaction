@@ -188,4 +188,33 @@ public interface KeycloakAdminClient {
     @Get("{realm}/groups/{id}")
     Mono<HttpResponse<GroupRepresentation>> getGroup(@PathVariable("realm") String realm,
                                                      @PathVariable("id") String id);
+
+    /**
+     * create or add a top level realm groupSet or create child.
+     * This will update the group and set the parent if it exists. Create it and set the parent if the group doesn’t exist.
+     * @param realm realm name (not id!)
+     * @param groupRepresentation GroupRepresentation(optional)
+     * @return 200 OK if success
+     */
+    @Post("{realm}/groups")
+    Mono<HttpResponse<Void>> createGroup(@PathVariable("realm") String realm,
+                                         @Body GroupRepresentation groupRepresentation);
+
+    /**
+     * Get groups for a user
+     * @param realm realm name (not id!)
+     * @param id user id
+     * @param briefRepresentation Boolean which defines whether brief representations are returned (default: false)
+     * @param first The position of the first result to be returned (pagination offset).
+     * @param max The maximum number of results that are to be returned. Defaults to 10
+     * @param search A String representing either an exact group name or a partial name
+     * @return Collection of groups that meet query criteria and of which this user is a member
+     */
+    @Get("{realm}/users/{id}/groups")
+    Mono<HttpResponse<List<GroupRepresentation>>> getUserGroups(@PathVariable("realm") String realm,
+                                                                @PathVariable("id") String id,
+                                                                @Nullable @QueryValue("briefRepresentation") Boolean briefRepresentation,
+                                                                @Nullable @QueryValue("first") Integer first,
+                                                                @Nullable @QueryValue("max") Integer max,
+                                                                @Nullable @QueryValue("search") String search);
 }

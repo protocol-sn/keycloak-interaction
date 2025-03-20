@@ -49,6 +49,14 @@
   "failureFactor" : 30,
   "roles" : {
     "realm" : [ {
+      "id" : "4f6fc3c8-260d-4374-b892-b2c3ef28c0e0",
+      "name" : "verifier",
+      "description" : "",
+      "composite" : false,
+      "clientRole" : false,
+      "containerId" : "f61da9bc-9ad1-4bd5-ac4f-508e145cf5cf",
+      "attributes" : { }
+    }, {
       "id" : "de7c38fb-ea2f-4859-9cb1-fd4870bf645a",
       "name" : "uma_authorization",
       "description" : "${role_uma_authorization}",
@@ -389,7 +397,7 @@
     "attributes" : {
       "user-approver" : [ "true" ]
     },
-    "realmRoles" : [ "node-user-admin" ],
+    "realmRoles" : [ "verifier", "node-user-admin" ],
     "clientRoles" : { }
   }, {
     "id" : "ca29d619-c8b7-460f-9346-a9fd0db2b7af",

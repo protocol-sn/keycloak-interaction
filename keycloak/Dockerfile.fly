@@ -1,0 +1,10 @@
+FROM quay.io/keycloak/keycloak:25.0
+
+ENV KC_METRICS_ENABLED=true
+ENV KC_HOSTNAME_STRICT=false
+ENV KC_HTTP_ENABLED=true
+ENV KC_PROXY="edge"
+ENV PROXY_ADDRESS_FORWARDING=true
+ENV KC_DB=postgres
+
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start-dev"]

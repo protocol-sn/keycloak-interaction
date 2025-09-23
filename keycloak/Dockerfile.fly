@@ -2,20 +2,21 @@ FROM quay.io/keycloak/keycloak:26.3.0
 
 ENV KC_METRICS_ENABLED=true
 ENV KC_HOSTNAME_STRICT=false
+ENV KC_HOSTNAME=https://psn-reverse-proxy.fly.dev/auth
 ENV KC_HTTP_ENABLED=true
+#ENV KC_PROXY="edge"
 ENV PROXY_ADDRESS_FORWARDING=true
 ENV KC_PROXY_HEADERS=xforwarded
 ENV KC_HTTP_RELATIVE_PATH=/auth
 ENV KC_HEALTH_ENABLED=true
-ENV KC_HOSTNAME=keycloak-auth
 ENV KC_DB=postgres
-#ENV KC_DB_URL_DATABASE=keycloak
 ENV KC_DB_URL=jdbc:postgresql://ecosystem-psql.flycast:5432/keycloak?sslmode=disable
+ENV KC_HOSTNAME_ADMIN=https://psn-keycloak.flycast:80/auth
 
-COPY ecosystem.json opt/keycloak/data/import/ecosystem-fly.json
 #COPY *.jar /opt/keycloak/providers/
 
 #Use when realm needs to be started up fresh
+COPY ecosystem-fly.json opt/keycloak/data/import/ecosystem.json
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start", "--import-realm"]
 
 #Use when realm info is already in database

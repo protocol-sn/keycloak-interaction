@@ -10,7 +10,6 @@ ENV PROXY_ADDRESS_FORWARDING=true
 ENV KEYCLOAK_ADMIN=admin
 ENV KEYCLOAK_ADMIN_PASSWORD=admin
 ENV KC_DB=postgres
-#ENV KC_DB_URL=jdbc:postgresql://db:5432/
 ENV KC_DB_USERNAME=postgres
 ENV KC_DB_PASSWORD=postgres
 ENV KC_PROXY_HEADERS=xforwarded
@@ -19,7 +18,6 @@ ENV KC_HEALTH_ENABLED=true
 ENV KC_DB_URL_HOST=db
 ENV KC_DB_URL_PORT=5432
 ENV KC_DB_URL_DATABASE=keycloak
-#ENV KC_DB_SCHEMA=keycloak
 
 COPY keycloak/ecosystem.json opt/keycloak/data/import/ecosystem.json
 COPY keycloak-custom-event-listener/target/custom-event-listener.jar /opt/keycloak/providers/custom-event-listener.jar
